@@ -130,31 +130,16 @@ class ProductController extends Controller
     public function update(edit $request, $id)
     {
         $product = ProductModel::findOrFail($id);
-        try {
-            // if ($request->hasFile('image')) {
-            //     $get_image          = $request->image;
-            //     //tạo file upload trong public để chạy ảnh
-            //     $path               = 'upload';
-            //     $get_name_image     = $get_image->getClientOriginalName(); //abc.jpg
-            //     //explode "." [abc,jpg]
-            //     $name_image         = current(explode('.', $get_name_image)); //trả về phần tử thứ 1 của mảng
-            //     //getClientOriginalExtension: tạo đuôi ảnh
-            //     $new_image          = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
-            //     //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
-            //     $get_image->move($path, $new_image); //chuyển file ảnh tới thư mục
-            //     $product->image   = $new_image;
-            
+        try {      
             if ($request->hasFile('image')) {
                 $get_file = $request->image;
-                
+                // dd($get_file);
                 $get_name_file = $get_file->getClientOriginalName();
                 $name_file = current(explode('.', $get_name_file));
                 $new_file = $name_file . rand(0, 99) . '.' . $get_file->getClientOriginalExtension();
                 $get_file->move(public_path('upload'), $new_file);
                 $product->image = $new_file;
             }
-            
-            
             $product->name = $request->name;
             $product->price = $request->price;
             $product->quantity = $request->quantity;

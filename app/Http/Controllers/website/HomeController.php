@@ -66,12 +66,13 @@ class HomeController extends Controller
 
     public function updatecart(Request $request)
     {
-        if ($request->id && $request->quantity) {
+        if ($request->items['product'] && $request->items['quantity']) {
             $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
+            $cart[$request->items['product']]->items["quantity"] = $request->quantity;
             session()->put('cart', $cart);
             session()->flash('success', 'Cart updated successfully');
         }
+        return redirect()->route('home.cart');
     }
     
     public function getCart(Request $request)

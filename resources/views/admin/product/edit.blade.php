@@ -53,7 +53,7 @@
             </div>
             <div class="form-group">
                <label>Ảnh</label>
-               <input type="file" class="form-control" name="image[]" value="{{asset('upload/'.$product->image)}}" multiple>
+               <input type="file" class="form-control" name="image" value="{{asset('upload/'.$product->image)}}" multiple>
                @if ($errors->any())
                <p style="color:red">{{ $errors->first('image') }}</p>
                @endif

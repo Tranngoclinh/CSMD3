@@ -140,69 +140,87 @@
       border-radius: .25rem;
       transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
    }
+
    .buttons_added {
-    opacity:1;
-    display:inline-block;
-    display:-ms-inline-flexbox;
-    display:inline-flex;
-    white-space:nowrap;
-    vertical-align:top;
+      opacity: 1;
+      display: inline-block;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      white-space: nowrap;
+      vertical-align: top;
+   }
+
+   .is-form {
+      overflow: hidden;
+      position: relative;
+      background-color: #f9f9f9;
+      height: 2.2rem;
+      width: 1.9rem;
+      padding: 0;
+      text-shadow: 1px 1px 1px #fff;
+      border: 1px solid #ddd;
+   }
+
+   .is-form:focus,
+   .input-text:focus {
+      outline: none;
+   }
+
+   .is-form.minus {
+      border-radius: 4px 0 0 4px;
+   }
+
+   .is-form.plus {
+      border-radius: 0 4px 4px 0;
+   }
+
+   .input-qty {
+      background-color: #fff;
+      height: 2.2rem;
+      text-align: center;
+      font-size: 1rem;
+      display: inline-block;
+      vertical-align: top;
+      margin: 0;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      border-left: 0;
+      border-right: 0;
+      padding: 0;
+   }
+
+   .mr-2,
+   .mx-2 {
+      margin-right: -0.5rem !important;
+   }
+
+   .update {
+      display: flex;
+   }
+
+   .input-qty::-webkit-outer-spin-button,
+   .input-qty::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+   }
+
+   a.btn.btn-warning {
+      margin-left: 1000px;
+   }
+
+   a.btn.btn-success {
+      margin: 0px 0px 12px 996px;
+   }
+
+   .text-primary {
+      color: #ea0808 !important;
+      font-size: 18px;
+      font-weight: 600;
+   }
+   h3 {
+    margin: 20px 50px;
 }
-.is-form {
-    overflow:hidden;
-    position:relative;
-    background-color:#f9f9f9;
-    height:2.2rem;
-    width:1.9rem;
-    padding:0;
-    text-shadow:1px 1px 1px #fff;
-    border:1px solid #ddd;
-}
-.is-form:focus,.input-text:focus {
-    outline:none;
-}
-.is-form.minus {
-    border-radius:4px 0 0 4px;
-}
-.is-form.plus {
-    border-radius:0 4px 4px 0;
-}
-.input-qty {
-    background-color:#fff;
-    height:2.2rem;
-    text-align:center;
-    font-size:1rem;
-    display:inline-block;
-    vertical-align:top;
-    margin:0;
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-    border-left:0;
-    border-right:0;
-    padding:0;
-}
-.mr-2, .mx-2 {
-    margin-right: -0.5rem!important;
-}
-.update {
-    display: flex;
-}
-.input-qty::-webkit-outer-spin-button,.input-qty::-webkit-inner-spin-button {
-    -webkit-appearance:none;
-    margin:0;
-}
-a.btn.btn-warning {
-    margin-left: 1000px;
-}
-a.btn.btn-success {
-    margin: 0px 0px 12px 996px;
-}
-.text-primary {
-    color: #ea0808!important;
-    font-size: 18px;
-    font-weight: 600;
-}
-/* .col-2.text-end {
+   /* .col-2.text-end {
     width: 0px;
     background: dodgerblue;
     height: 30px;
@@ -234,13 +252,15 @@ a.btn.btn-success {
                         <p>Chưa có sản phẩm nào trong giỏ hàng của bạn</p>
                         <a href="" class="btn nutmuathem mb-`3">Mua thêm</a>
                      </div> --}}
-                  {{-- </div>
+                     {{--
+                  </div>
                </div>
                @endif --}}
                <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                      <li class="breadcrumb-item active">
-                        <a href="{{route('home.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                        <a href="{{route('home.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
+                           Chủ</a>
                      </li>
                   </ol>
                </nav>
@@ -271,34 +291,33 @@ a.btn.btn-success {
                                     @if (isset($cart))
                                     @foreach($cart as $items)
                                     {{-- {{dd($cart)}} --}}
-                                    <tr>
+                                    <tr data-id="{{$items['product']}}">
                                        <form action="" method="post">
                                           @csrf
-                                          <td class="product_name"><a href="{{route('home.detail',$items['product'])}}">{{ $items['name']}}</a></td>
+                                          <td class="product_name"><a
+                                                href="{{route('home.detail',$items['product'])}}">{{
+                                                $items['name']}}</a></td>
                                           <td class="product_thumb"><a
                                                 href="{{route('home.detail',$items['product'])}}"><img
                                                    src="{{asset('upload/'.$items['image'])}}" alt=""></a></td>
                                           {{-- <td class="product_quantity"><input min="1" max="100"
                                                 value="{{$items['quantity']}}" name="quantity" type="number"></td> --}}
-                                          <td>
+                                          <td data-th="Quantity">
                                              <div class="buttons_added">
                                                 <input class="minus is-form" type="button" value="-">
-                                                <input aria-label="quantity" class="input-qty" max="10000"  min="1" name="quantity" type="number" value="{{$items['quantity']}}">
+                                                <input aria-label="quantity" class="input-qty" max="10000" min="1"
+                                                   name="quantity" type="number" value="{{$items['quantity']}}" class="form-control quantity update-cart">
                                                 <input class="plus is-form" type="button" value="+">
-                                              </div>
+                                             </div>
                                           </td>
                                           <td class="product-price">{{ number_format($items['price']*$items['quantity'])
                                              }} <span style="color: red">VNĐ</span></td>
 
                                           <td><a href="{{route('remove.from.cart',$items['product'])}}"><i
                                                    class="fas fa-trash"></i></a></td>
-                                          {{-- <input type="hidden" class="hidden" value="{{$item['item']->id}}"
-                                             name="product_id[]"> --}}
-                                          {{-- <td class="product_total"></td>
-                                          <td class="product_remove"><a href="" type="button"><i
-                                                   class="fa fa-trash-o"></i></a></td> --}}
+                                      
                                     </tr>
-                                    
+
                                     @endforeach
 
                                     @else
@@ -308,8 +327,14 @@ a.btn.btn-success {
                                     @endif
                                  </tbody>
                               </table>
-                              <h2>Tổng:   <span style="color: red">  VNĐ</span></h2>
-                              <a href="{{route('update.cart')}}" class="btn btn-success">Cập Nhật</a>                       
+                              @php $total = 0 @endphp
+                              @foreach((array) session('cart') as $id => $details)
+                              @php $total += $details['price'] * $details['quantity'] @endphp
+                              @endforeach
+                              <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                              </div>
+                              <h3>Tổng: {{ number_format($total) }} <span style="color: red"> VNĐ</span></h3>
+                              <a href="{{route('update.cart')}}" class="btn btn-success">Cập Nhật</a>
                               <a onclick="history.go(-1)" class="btn btn-warning">Quay Lại</a>
 
                            </div>
@@ -347,49 +372,42 @@ a.btn.btn-success {
                         @if ($errors)
                         <div class="text-danger">{{$errors->first('email')}}</div>
                         @endif
-                        <label>Địa Chỉ<span style="color: red">*</span>( Tỉnh/thành phố - Huyện - Xã/Phường - Thôn/Làng - Số Nhà/Đường)</label>
+                        <label>Địa Chỉ<span style="color: red">*</span>( Tỉnh/thành phố - Huyện - Xã/Phường - Thôn/Làng
+                           - Số Nhà/Đường)</label>
                         <div class="form-label-group">
                            <input type="text" id="inputAddress" class="form-control"
                               placeholder="Nhập Địa chỉ giao hàng" name="address" autocomplete="off">
                         </div>
-                        {{-- <select name="calc_shipping_provinces" required="">
-                           <option value="">Tỉnh / Thành phố</option>
-                         </select>
-                         <select name="calc_shipping_district" required="">
-                           <option value="">Quận / Huyện</option>
-                         </select>
-                         <input class="billing_address_1" name="" type="hidden" value="">
-                         <input class="billing_address_2" name="" type="hidden" value=""> --}}
                         @if ($errors)
                         <div class="text-danger">{{$errors->first('address')}}</div>
                         @endif
-               
+
                         <div class="m-2 d-flex">
-                           <fieldset class="border p-3 mr-2 col-6">    
+                           <fieldset class="border p-3 mr-2 col-6">
                               <legend class="small text-primary fw-bold">Phương thức thanh toán</legend>
                               <div class="form-group row1">
-                                <p><input type="radio" name="phuongthuctt" value="ck"> Chuyển khoản</p>
-                                <p><input type="radio" name="phuongthuctt" value="khinhan"> Khi nhận hàng</p>
-                                <p><input type="radio" name="phuongthuctt" value="onepay"> Onepay</p>
-                                <p><input type="radio" name="phuongthuctt" value="nganluong"> Ngân Lượng</p>
+                                 <p><input type="radio" name="phuongthuctt" value="ck"> Chuyển khoản</p>
+                                 <p><input type="radio" name="phuongthuctt" value="khinhan"> Khi nhận hàng</p>
+                                 <p><input type="radio" name="phuongthuctt" value="onepay"> Onepay</p>
+                                 <p><input type="radio" name="phuongthuctt" value="nganluong"> Ngân Lượng</p>
                               </div>
-                            </fieldset>
-                            <fieldset class="border p-3 ml-3 col-6">    
-                               <legend class="small text-primary fw-bold">Phương thức giao hàng</legend>
-                               <div class="form-group row2">
-                                  <p><input type="radio" name="phuongthuctt1" value="ghnhanh"> Giao hàng nhanh</p>
+                           </fieldset>
+                           <fieldset class="border p-3 ml-3 col-6">
+                              <legend class="small text-primary fw-bold">Phương thức giao hàng</legend>
+                              <div class="form-group row2">
+                                 <p><input type="radio" name="phuongthuctt1" value="ghnhanh"> Giao hàng nhanh</p>
                                  <p><input type="radio" name="phuongthuctt1" value="ghtietkiem"> Giao hàng tiết kiệm</p>
                                  <p><input type="radio" name="phuongthuctt1" value="vnpost"> VN Post</p>
                                  <p><input type="radio" name="phuongthuctt1" value="viettel"> Viettel</p>
-                               </div>
-                            </fieldset>    
-                        </div>  
-                        <div class="py-2 m-2 d-flex justify-content-end">  
+                              </div>
+                           </fieldset>
+                        </div>
+                        <div class="py-2 m-2 d-flex justify-content-end">
                            <div class="col-2 text-end">
-                               <button class="btn btn-success">Mua hàng</button>
-                               {{-- <a href="">Mua Hàng</a> --}}
+                              <button class="btn btn-success">Mua hàng</button>
+                              {{-- <a href="">Mua Hàng</a> --}}
                            </div>
-                       </div> 
+                        </div>
                      </form>
                   </div>
                   {{-- <a href="" class="btn btn-success form-control" style="background: #faf42b">Đặt
@@ -423,5 +441,6 @@ a.btn.btn-success {
     }
     $this.attr('value', d).val(d)
   })
-})
+});
+
 </script>
