@@ -11,35 +11,29 @@
                     @csrf
                     <div class="form-group">
                         <label>Tên khách hàng</label>
-                        <input type="text" class="form-control" name="name" placeholder="Nhập tên khách hàng" >
+                        <input type="text" class="form-control" name="name" placeholder="Nhập tên khách hàng" value="{{old('name')}}" >
                         @if ($errors->any())
                           <p style="color:red">{{ $errors->first('name') }}</p>
                         @endif
                     </div>
-                    {{-- <div class="form-group">
-                        <label>Tuổi khách hàng</label>
-                        <input type="number" class="form-control" name="age" placeholder="Nhập tuổi khách hàng" >
-                        @if ($errors->any())
-                          <p style="color:red">{{ $errors->first('age') }}</p>
-                        @endif
-                    </div> --}}
+                   
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Nhập email" >
+                        <input type="email" class="form-control" name="email" placeholder="Nhập email"  value="{{old('email')}}">
                         @if ($errors->any())
                           <p style="color:red">{{ $errors->first('email') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Số Điện Thoại</label>
-                        <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại" >
+                        <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại"  value="{{old('phone')}}">
                         @if ($errors->any())
                           <p style="color:red">{{ $errors->first('phone') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ khách hàng</label>
-                        <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ" >
+                        <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ"  value="{{old('address')}}">
                         @if ($errors->any())
                           <p style="color:red">{{ $errors->first('address') }}</p>
                         @endif

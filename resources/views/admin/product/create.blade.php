@@ -26,14 +26,14 @@
             @csrf
             <div class="form-group">
                <label>Tên Sản Phẩm</label>
-               <input type="text" class="form-control" name="name" placeholder="Nhập tên sản phẩm">
+               <input type="text" class="form-control" name="name" placeholder="Nhập tên sản phẩm" value="{{old('name')}}">
                @if ($errors->any())
                <p style="color:red">{{ $errors->first('name') }}</p>
                @endif
             </div>
             <div class="form-group">       
                <label>Hãng Xe</label>
-                     <select name="category_id" class="form-control" >
+                     <select name="category_id" class="form-control"  value="{{old('category_id')}}" >
                              <option value="">Chọn hãng xe</option>
                          @foreach ($products as $product)
                              <option value="{{$product->id}}">{{$product->name}}</option>
@@ -45,28 +45,28 @@
             </div>
             <div class="form-group">
                <label>Giá</label>
-               <input type="text" class="form-control" name="price" placeholder="Nhập Giá">
+               <input type="text" class="form-control" name="price" placeholder="Nhập Giá"  value="{{old('price')}}">
                @if ($errors->any())
                <p style="color:red">{{ $errors->first('price') }}</p>
                @endif
             </div>
             <div class="form-group">
                <label>Số Lượng</label>
-               <input type="text" class="form-control" name="quantity" placeholder="Nhập số lượng">
+               <input type="text" class="form-control" name="quantity" placeholder="Nhập số lượng"  value="{{old('quantity')}}">
                @if ($errors->any())
                <p style="color:red">{{ $errors->first('quantity') }}</p>
                @endif
             </div>
             <div class="form-group">
                <label>Ảnh</label>
-               <input type="file" class="form-control" name="image" placeholder="" >
+               <input type="file" class="form-control" name="image" placeholder=""  value="{{old('image')}}">
                @if ($errors->any())
                <p style="color:red">{{ $errors->first('image') }}</p>
                @endif
             </div>
             <div class="form-group">
                <label>Mô Tả</label>
-               <textarea  class="form-control" name="description" placeholder="Nhập mô tả" rows="5"></textarea>
+               <textarea  class="form-control" name="description" placeholder="Nhập mô tả"  value="{{old('description')}}" rows="5"></textarea>
 
                {{-- <input type="text" class="form-control" name="description" placeholder="Nhập mô tả"> --}}
                @if ($errors->any())
